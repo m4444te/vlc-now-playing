@@ -58,7 +58,7 @@ async function monitorVLC() {
 
     if (currentSong.title !== previousTitle || currentSong.artist !== previousArtist) {
       if (currentSong.title && currentSong.artist) {
-        const message = `🔊 #nowplaying #music #3615radio \n\n ${currentSong.title} by ${currentSong.artist} \n\n ${currentSong.description} `;
+        const message = `${currentSong.title} by ${currentSong.artist} \n\n #nowplaying #music #3615radio `;
         // console.log(message);
         await postToMastodon(message);
       } else {
