@@ -31,10 +31,10 @@ async function getCurrentSong() {
     const info = response.data.information;
     const meta = info && info.category && info.category.meta;
 
-    if (meta && meta.title && meta.artist && meta.album) {
-      return { title: meta.title, artist: meta.artist, album: meta.album};
+    if (meta && meta.title && meta.artist && meta.album && meta.date) {
+      return { title: meta.title, artist: meta.artist, album: meta.album, date: meta.date};
     } else {
-      return { title: '', artist: '', album: '' };
+      return { title: '', artist: '', album: '', date: '' };
     }
   } catch (error) {
     console.error('Error connecting to VLC:', error);
@@ -58,7 +58,7 @@ async function monitorVLC() {
 
     if (currentSong.title !== previousTitle || currentSong.artist !== previousArtist) {
       if (currentSong.title && currentSong.artist) {
-        const message = `${currentSong.title} by ${currentSong.artist} from ${currentSong.album} \n\n #nowplaying #music #3615radio `;
+        const message = `${currentSong.title} by ${currentSong.artist} from ${currentSong.album} (${currentSong.date}) \n\n #nowplaying #music #3615radio `;
         // console.log(message);
         await postToMastodon(message);
       } else {
